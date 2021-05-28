@@ -86,31 +86,53 @@ if(isset($_POST['register_button'])){
         }
 
     }else{
-        array_push($error_array, "Email Doesn't Match");
+        array_push($error_array, "Email Doesn't Match<br>");
     }
    
-    if(strlen($fname > 25 || $fname < 2 )){
-        array_push($error_array, "First Name should be greater than 2 and less than 25 chracters <br>");
-    }
-    if(strlen($lname > 25 || $lname < 2 )){
-        array_push($error_array, "First Name should be greater than 2 and less than 25 chracters <br>");
-    }
-    if($password != $password2){
-        array_push($error_array, "Passwords Don't Match <br>");
-    }else{
-        if(preg_match('/[^A-Za-z0-9]/', $password)){
-            array_push($error_array, "Password can only contain english characters or Numbers <br>");
+    if(strlen($fname) > 25 || strlen($fname) < 2) {
+		array_push($error_array, "Your first name must be between 2 and 25 characters<br>");
+	}
+
+	if(strlen($lname) > 25 || strlen($lname) < 2) {
+		array_push($error_array,  "Your last name must be between 2 and 25 characters<br>");
+	}
+
+	if($password != $password2) {
+		array_push($error_array,  "Your passwords do not match<br>");
+	}
+	else {
+		if(preg_match('/[^A-Za-z0-9]/', $password)) {
+			array_push($error_array, "Your password can only contain english characters or numbers<br>");
+		}
+	}
+
+	if(strlen($password > 30 || strlen($password) < 5)) {
+		array_push($error_array, "Your password must be betwen 5 and 30 characters<br>");
+	}
+
+    if(empty($error_array)){
+        $password = md5($password); // Encrypting the password
+
+        // Generating Username
+
+        $username = strtolower($fname . "_" . $lname);
+        $check_username_query = mysqli_query($con, " SELECT username FROM users WHERE username='$username' ");
+
+        $i = 0;
+        //If users exists add numbers
+        while(mysqli_num_rows($check_username_query) != 0){
+            $i++;
+            $username = $username . "_" . $i;
+            $check_username_query = mysqli_query($con, " SELECT username FROM users WHERE username='$username' ");
+            
         }
-    }   
 
-    if(strlen($password > 30 || $password < 5)){
-        array_push($error_array, "Password Must be between 5 and 30 characters <br>");
+
     }
-
-
 
 
 }
+
 
 
 ?>
@@ -132,34 +154,51 @@ if(isset($_POST['register_button'])){
             }
         ?> ">
         <br>
+        
+        <?php if(in_array("First Name should be greater than 2 and less than 25 chracters <br>", $error_array)) echo "First Name should be greater than 2 and less than 25 chracters <br>";?>
+
         <input type="text" name="reg_lname" placeholder="Last Name" required 
         value = "<?php 
             if(isset($_SESSION['reg_lname'])){
                 echo $_SESSION['reg_lname'];
             }
-        ?> ">
+            ?> "
         >
         <br>
+        <?php if(in_array("Last Name should be greater than 2 and less than 25 chracters <br>", $error_array)) echo "Last Name should be greater than 2 and less than 25 chracters <br>";?>
+
         <input type="email" name="reg_email" placeholder="Email" required
         value = "<?php 
             if(isset($_SESSION['reg_email'])){
                 echo $_SESSION['reg_email'];
             }
-        ?> ">
+        ?> "
         > 
         <br>
+        
         <input type="email" name="reg_email2" placeholder="Confirm Email" required 
         value = "<?php 
             if(isset($_SESSION['reg_email2'])){
                 echo $_SESSION['reg_email2'];
             }
-        ?> ">
+        ?> "
         > 
         <br>
+        <?php if(in_array("Email Already In Use <br>", $error_array)) echo "Email Already In Use <br>";?>
+        <?php if(in_array("Invalid Email Formate <br>", $error_array)) echo "Invalid Email Formate <br>";?>
+        <?php if(in_array("Email Doesn't Match<br>", $error_array)) echo "Email Doesn't Match<br>";?>
+
         <input type="password" name="reg_password" placeholder="Password" required >
         <br>
+        <?php if(in_array("Passwords Don't Match <br>", $error_array)) echo "Passwords Don't Match <br>";?>
         <input type="password" name="reg_password2" placeholder="Confirm Password" required x>
         <br>
+        <?php if(in_array("Your passwords do not match<br>", $error_array)) echo "Passwords Don't Match <br>";?>
+        <?php if(in_array("Password can only contain english characters or Numbers <br>", $error_array)) echo "Password can only contain english characters or Numbers <br>";?>
+        <?php if(in_array("Password Must be between 5 and 30 characters <br>", $error_array)) echo "Password Must be between 5 and 30 characters <br>";?>
+
+
+
         <input type="submit" name="register_button" value="Register" >
 
     </form>
