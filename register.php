@@ -18,7 +18,7 @@ $email2 = "";
 $password = "";
 $password2 = "";
 $date = "";
-$error_array = "";
+$error_array = [];
 
 
 
@@ -76,35 +76,35 @@ if(isset($_POST['register_button'])){
             $num_rows = mysqli_num_rows($e_check);
 
             if($num_rows > 0){
-                echo "Email Already in Use";
+                array_push($error_array,"Email Already In Use <br>");
             }
 
 
 
         }else{
-            
+            array_push($error_array, "Invalid Email Formate <br>");
         }
 
     }else{
-        echo "Email Doesn't Match";
+        array_push($error_array, "Email Doesn't Match");
     }
    
     if(strlen($fname > 25 || $fname < 2 )){
-        echo "First Name should be greater than 2 and less than 25 chracters";
+        array_push($error_array, "First Name should be greater than 2 and less than 25 chracters <br>");
     }
     if(strlen($lname > 25 || $lname < 2 )){
-        echo "First Name should be greater than 2 and less than 25 chracters";
+        array_push($error_array, "First Name should be greater than 2 and less than 25 chracters <br>");
     }
     if($password != $password2){
-        echo "Passwords Don't Match";
+        array_push($error_array, "Passwords Don't Match <br>");
     }else{
         if(preg_match('/[^A-Za-z0-9]/', $password)){
-            echo "Password can only contain english characters or Numbers";
+            array_push($error_array, "Password can only contain english characters or Numbers <br>");
         }
     }   
 
     if(strlen($password > 30 || $password < 5)){
-        echo "Password Must be between 5 and 30 characters";
+        array_push($error_array, "Password Must be between 5 and 30 characters <br>");
     }
 
 
@@ -158,7 +158,7 @@ if(isset($_POST['register_button'])){
         <br>
         <input type="password" name="reg_password" placeholder="Password" required >
         <br>
-        <input type="password" name="reg_password2" placeholder="Confirm Password" required >
+        <input type="password" name="reg_password2" placeholder="Confirm Password" required x>
         <br>
         <input type="submit" name="register_button" value="Register" >
 
