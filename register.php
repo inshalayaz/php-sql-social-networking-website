@@ -124,9 +124,16 @@ if(isset($_POST['register_button'])){
             $i++;
             $username = $username . "_" . $i;
             $check_username_query = mysqli_query($con, " SELECT username FROM users WHERE username='$username' ");
-            
+
         }
 
+        // Profile Picture
+        $rand = rand(1,2);
+        if($rand == 1){
+            $profile_pic = "assets/images/profile_pics/defaults/head_alizarin.png";
+        }else{
+            $profile_pic = "assets/images/profile_pics/defaults/head_amethyst.png";   
+        }
 
     }
 
