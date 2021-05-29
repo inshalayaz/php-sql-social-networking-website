@@ -1,19 +1,20 @@
-<?php
-$con = mysqli_connect("localhost","root","","social");
+<?php  
+$con = mysqli_connect("localhost", "root", "", "social"); //Connection variable
 
-$query = mysqli_query($con," INSERT INTO test VALUES('12') ");
+if(mysqli_connect_errno()) 
+{
+	echo "Failed to connect: " . mysqli_connect_errno();
+}
+
+$query = mysqli_query($con, "INSERT INTO test VALUES ('2', 'Optimus Prime')");
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<title>Welcome to Swirlfeed</title>
 </head>
 <body>
-    HI
+	Hello Reece!!!!!
 </body>
 </html>
