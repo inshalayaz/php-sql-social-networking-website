@@ -1,20 +1,7 @@
-<?php  
-$con = mysqli_connect("localhost", "root", "", "social"); //Connection variable
-
-if(mysqli_connect_errno()) 
-{
-	echo "Failed to connect: " . mysqli_connect_errno();
-}
-
-$query = mysqli_query($con, "INSERT INTO test VALUES ('2', 'Optimus Prime')");
-
+<?php 
+include './includes/header.php';
+session_destroy();
 ?>
-
-<html>
-<head>
-	<title>Welcome to Swirlfeed</title>
-</head>
-<body>
 	Hello Inshal!!!!!
 </body>
 </html>
