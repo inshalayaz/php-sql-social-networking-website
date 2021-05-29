@@ -1,6 +1,6 @@
 <?php 
 include './includes/header.php';
-session_destroy();
+//session_destroy();
 ?>
 	Hello Inshal!!!!!
 </body>
