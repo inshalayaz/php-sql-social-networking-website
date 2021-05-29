@@ -15,6 +15,6 @@ $query = mysqli_query($con, "INSERT INTO test VALUES ('2', 'Optimus Prime')");
 	<title>Welcome to Swirlfeed</title>
 </head>
 <body>
-	Hello Reece!!!!!
+	Hello Inshal!!!!!
 </body>
 </html>

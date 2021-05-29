@@ -88,12 +88,12 @@ if(isset($_POST['register_button'])){
 		}
 	}
 
-	if(strlen($password > 30 || strlen($password) < 5)) {
-		array_push($error_array, "Your password must be betwen 5 and 30 characters<br>");
-	}
+	// if(strlen($password > 30 || strlen($password) < 5)) {
+	// 	array_push($error_array, "Your password must be betwen 5 and 30 characters<br>");
+	// }
 
 
-	if(!empty($error_array)) {
+	if(empty($error_array)) {
 		$password = md5($password); //Encrypt password before sending to database
 
 		//Generate username by concatenating first name and last name
